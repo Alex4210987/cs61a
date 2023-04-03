@@ -37,8 +37,8 @@ def tail_points(opponent_score):
     """Return the points scored by rolling 0 dice according to Pig Tail.
 
     opponent_score:   The total score of the other player.
-    2 * abs(tens - ones) + 1 points; 
-    where tens, ones are the tens and ones digits of the opponent's score. 
+    2 * abs(tens - ones) + 1 points;
+    where tens, ones are the tens and ones digits of the opponent's score.
     """
     # BEGIN PROBLEM 2
     "*** YOUR CODE HERE ***"
@@ -58,7 +58,7 @@ def take_turn(num_rolls, opponent_score, dice=six_sided):
     """
     # Leave these assert statements here; they help check for errors.
     assert type(num_rolls) == int, 'num_rolls must be an integer.'
-    assert num_rolls >= 0,'Cannot roll a negative number of dice in take_turn.'
+    assert num_rolls >= 0, 'Cannot roll a negative number of dice in take_turn.'
     assert num_rolls <= 10, 'Cannot roll more than 10 dice.'
     # BEGIN PROBLEM 3
     "*** YOUR CODE HERE ***"
@@ -89,9 +89,9 @@ def square_update(num_rolls, player_score, opponent_score, dice=six_sided):
 
 # BEGIN PROBLEM 4
 "*** YOUR CODE HERE ***"
-"""Square Swine. After a player gains points for their turn, 
+"""Square Swine. After a player gains points for their turn,
 if the resulting score is a perfect square, then increase their score
- to the next higher perfect square. 
+ to the next higher perfect square.
 A perfect square is any integer n where n = d * d for some integer d."""
 
 
@@ -310,6 +310,8 @@ def tail_strategy(score, opponent_score, threshold=12, num_rolls=6):
     points, and returns NUM_ROLLS otherwise. Ignore score and Square Swine.
     """
     # BEGIN PROBLEM 10
+    if tail_points(opponent_score) >= threshold:
+        return 0
     return num_rolls  # Remove this line once implemented.
     # END PROBLEM 10
 
@@ -317,6 +319,8 @@ def tail_strategy(score, opponent_score, threshold=12, num_rolls=6):
 def square_strategy(score, opponent_score, threshold=12, num_rolls=6):
     """This strategy returns 0 dice when your score would increase by at least threshold."""
     # BEGIN PROBLEM 11
+    if score + square_update(num_rolls, score, opponent_score) >= threshold:
+        return 0
     return num_rolls  # Remove this line once implemented.
     # END PROBLEM 11
 
@@ -327,6 +331,7 @@ def final_strategy(score, opponent_score):
     *** YOUR DESCRIPTION HERE ***
     """
     # BEGIN PROBLEM 12
+
     return 6  # Remove this line once implemented.
     # END PROBLEM 12
 
