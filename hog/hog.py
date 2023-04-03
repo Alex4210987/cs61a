@@ -130,7 +130,7 @@ def play(strategy0,
     which both players always choose to roll 5 dice on every turn and the Square
     Swine rule is in effect.
 
-    A strategy function, such as always_roll_5, takes the current player's
+    A strategy function,such as always_roll_5, takes the current player's
     score and their opponent's score and returns the number of dice the current
     player chooses to roll.
 
