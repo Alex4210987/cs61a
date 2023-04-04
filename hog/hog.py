@@ -14,23 +14,31 @@ GOAL = 100  # The goal of Hog is to score 100 points.
 def roll_dice(num_rolls, dice=six_sided):
     """Simulate rolling the DICE exactly NUM_ROLLS > 0 times. Return the sum of
     the outcomes unless any of the outcomes is 1. In that case, return 1.
-
     num_rolls:  The number of dice rolls that will be made.
     dice:       A function that simulates a single dice roll outcome.
     """
     # These assert statements ensure that num_rolls is a positive integer.
     assert type(num_rolls) == int, 'num_rolls must be an integer.'
     assert num_rolls > 0, 'Must roll at least once.'
+    ans = 0
+    flag = 0
     # BEGIN PROBLEM 1
     "*** YOUR CODE HERE ***"
     while num_rolls > 0:
-        if dice() == 1:
-            num_rolls -= 1
-            return 1
+        temp = dice()
+        num_rolls -= 1
+        if temp == 1:
+            flag = 1
         else:
-            num_rolls -= 1
-            return dice()
+            ans += temp
+    if flag == 1:
+        return 1
+    else:
+        return ans
     # END PROBLEM 1
+
+
+#roll_dice(2, make_test_dice(4, 6, 1))
 
 
 def tail_points(opponent_score):
@@ -42,7 +50,7 @@ def tail_points(opponent_score):
     """
     # BEGIN PROBLEM 2
     "*** YOUR CODE HERE ***"
-    tens = opponent_score // 10
+    tens = opponent_score // 10 - opponent_score // 100 * 10
     ones = opponent_score % 10
     return 2 * abs(tens - ones) + 1
     # END PROBLEM 2
