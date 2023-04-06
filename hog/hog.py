@@ -2,7 +2,7 @@
 
 from dice import six_sided, make_test_dice
 from ucb import main, trace, interact
-from math import log2
+import math
 
 GOAL = 100  # The goal of Hog is to score 100 points.
 
@@ -107,11 +107,12 @@ def perfect_square(score):
     if score == 0:
         return False
     else:
-        return int(log2(score)) == log2(score)
+        sqrt = int(math.sqrt(score))
+        return sqrt * sqrt == score
 
 
 def next_perfect_square(score):
-    return (int(log2(score)) + 1)**2
+    return (int)(math.sqrt(score) + 1)**2
 
 
 # END PROBLEM 4
@@ -187,13 +188,15 @@ def always_roll(n):
     >>> strategy(99, 99)
     3
     """
-    assert n >= 0 and n <= 10
+    assert n >= 0 and n <= 10, 'The number of dice must be between 0 and 10.'
     # BEGIN PROBLEM 6
     "*** YOUR CODE HERE ***"
 
     def strategy(score, opponent_score):
+        assert score >= 0 and opponent_score >= 0, 'The score must be greater than 0'
         return n
 
+    return strategy
     # END PROBLEM 6
 
 
@@ -212,7 +215,7 @@ def catch_up(score, opponent_score):
         return 5
 
 
-def is_always_roll(strategy, goal=GOAL):
+def is_always_roll(strategy):
     """Return whether strategy always chooses the same number of dice to roll.
 
     >>> is_always_roll(always_roll_5)
@@ -224,11 +227,16 @@ def is_always_roll(strategy, goal=GOAL):
     """
     # BEGIN PROBLEM 7
     "*** YOUR CODE HERE ***"
-    if strategy(0, 0) == strategy(0, goal) == strategy(goal, 0) == strategy(
-            goal, goal):
-        return True
-    else:
-        return False
+    num = strategy(0, 0)
+    flag = True
+    i = 0
+    while i < 1000:
+        if strategy(i, 0) != num or strategy(0, i) != num or strategy(
+                i, i) != num:
+            flag = False
+            break
+        i += 1
+    return flag
     # END PROBLEM 7
 
 
@@ -252,6 +260,7 @@ def make_averaged(original_function, total_samples=1000):
             total += original_function(*args)
         return total / total_samples
 
+    return average
     # END PROBLEM 8
 
 
@@ -327,10 +336,18 @@ def tail_strategy(score, opponent_score, threshold=12, num_rolls=6):
 def square_strategy(score, opponent_score, threshold=12, num_rolls=6):
     """This strategy returns 0 dice when your score would increase by at least threshold."""
     # BEGIN PROBLEM 11
-    if score + square_update(num_rolls, score, opponent_score) >= threshold:
+    if (square_update(0, score, opponent_score) - score) >= threshold:
         return 0
     return num_rolls  # Remove this line once implemented.
     # END PROBLEM 11
+
+s=5
+while s < 100:
+    if square_update(0, 20, s) - 20 >= 10:
+        assert square_strategy(20, s, threshold=10, num_rolls=3) == 0
+    else:
+        assert square_strategy(20, s, threshold=10, num_rolls=3) == 3
+    s += 1
 
 
 def final_strategy(score, opponent_score):
