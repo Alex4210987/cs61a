@@ -56,6 +56,9 @@ def tail_points(opponent_score):
     # END PROBLEM 2
 
 
+#...
+
+
 def take_turn(num_rolls, opponent_score, dice=six_sided):
     """Return the points scored on a turn rolling NUM_ROLLS dice when the
     opponent has OPPONENT_SCORE points.
@@ -341,7 +344,8 @@ def square_strategy(score, opponent_score, threshold=12, num_rolls=6):
     return num_rolls  # Remove this line once implemented.
     # END PROBLEM 11
 
-s=5
+
+s = 5
 while s < 100:
     if square_update(0, 20, s) - 20 >= 10:
         assert square_strategy(20, s, threshold=10, num_rolls=3) == 0
