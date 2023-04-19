@@ -181,22 +181,39 @@ def feline_fixes(typed, source, limit):
         typed: a starting word
         source: a string representing a desired goal word
         limit: a number representing an upper bound on the number of chars that must change
-
+    """
+    """
     >>> big_limit = 10
-    >>> feline_fixes("nice", "rice", big_limit)    # Substitute: n -> r
-    1
-    >>> feline_fixes("range", "rungs", big_limit)  # Substitute: a -> u, e -> s
-    2
-    >>> feline_fixes("pill", "pillage", big_limit) # Don't substitute anything, length difference of 3.
-    3
-    >>> feline_fixes("roses", "arose", big_limit)  # Substitute: r -> a, o -> r, s -> o, e -> s, s -> e
-    5
-    >>> feline_fixes("rose", "hello", big_limit)   # Substitute: r->h, o->e, s->l, e->l, length difference of 1.
-    5
+>>> feline_fixes("nice", "rice", big_limit)    # Substitute: n -> r
+1
+>>> feline_fixes("range", "rungs", big_limit)  # Substitute: a -> u, e -> s
+2
+>>> feline_fixes("pill", "pillage", big_limit) # Don't substitute anything, length difference of 3.
+3
+>>> feline_fixes("roses", "arose", big_limit)  # Substitute: r -> a, o -> r, s -> o, e -> s, s -> e
+2
     """
     # BEGIN PROBLEM 6
+    "*** YOUR CODE HERE ***"
+    # make sure break as long as limit is reached
+    if limit < 0:
+        return 1
+    if len(typed) == 0 and len(source) == 0:
+        return 0
+    elif len(typed) == 0:
+        return len(source)
+    elif len(source) == 0:
+        return len(typed)
+    else:
+        if typed[0] == source[0]:
+            return feline_fixes(typed[1:], source[1:], limit)
+        else:
+            return 1 + feline_fixes(typed[1:], source[1:], limit - 1)
     assert False, 'Remove this line'
     # END PROBLEM 6
+
+
+feline_fixes("roses", "arose", 10)
 
 
 def minimum_mewtations(typed, source, limit):
