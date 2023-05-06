@@ -56,7 +56,6 @@ def tail_points(opponent_score):
     # END PROBLEM 2
 
 
-#...sss
 
 
 def take_turn(num_rolls, opponent_score, dice=six_sided):
