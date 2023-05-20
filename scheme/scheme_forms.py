@@ -38,6 +38,10 @@ def do_define_form(expressions, env):
         validate_form(expressions, 2, 2)  # Checks that expressions is a list of length exactly 2
         # BEGIN PROBLEM 4
         "*** YOUR CODE HERE ***"
+        name = signature
+        value = scheme_eval(expressions.rest.first, env)  # 求值得到赋值的值
+        env.define(name, value)  # 将名称和值添加到环境中
+        return name
         # END PROBLEM 4
     elif isinstance(signature, Pair) and scheme_symbolp(signature.first):
         # defining a named procedure e.g. (define (f x y) (+ x y))
@@ -59,6 +63,7 @@ def do_quote_form(expressions, env):
     validate_form(expressions, 1, 1)
     # BEGIN PROBLEM 5
     "*** YOUR CODE HERE ***"
+    return expressions.first
     # END PROBLEM 5
 
 
@@ -87,6 +92,13 @@ def do_lambda_form(expressions, env):
     validate_formals(formals)
     # BEGIN PROBLEM 7
     "*** YOUR CODE HERE ***"
+    #formals=Pair(formals,nil)
+    return LambdaProcedure(formals, expressions.rest, env)
+    # The body attribute of a LambdaProcedure instance is therefore a 
+    # Scheme list of body expressions. The formals attribute of a LambdaProcedure 
+    # instance should be a properly nested Pair expression. Like a begin special form, 
+    # evaluating the body of a procedure evaluates all body expressions in order. 
+    # The return value of a procedure is the value of its last body expression.
     # END PROBLEM 7
 
 

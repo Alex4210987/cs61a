@@ -1,5 +1,4 @@
+from scheme_reader import *
 from scheme import *
-env = create_global_frame()
-twos = Pair(2, Pair(2, nil))
-plus = BuiltinProcedure(scheme_add) # + procedure
-scheme_apply(plus, twos, env)
+expr = read_line('(+ 2 2)')
+scheme_eval(expr, create_global_frame()) # Type SchemeError if you think this errors

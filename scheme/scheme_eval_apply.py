@@ -33,11 +33,21 @@ def scheme_eval(expr, env, _=None):  # Optional third argument is ignored
     if scheme_symbolp(first) and first in scheme_forms.SPECIAL_FORMS:
         return scheme_forms.SPECIAL_FORMS[first](rest, env)
     else:
-        # BEGIN PROBLEM 3
-        "*** YOUR CODE HERE ***"
-        
-        # END PROBLEM 3
+        operator = scheme_eval(first, env)  # Evaluate the operator
+        operands = rest.map(lambda operand: scheme_eval(operand, env))  # Evaluate the operands
+        return scheme_apply(operator, operands,env)  # Apply the operator to the operands
+# You'll have to recursively call scheme_eval in the first two steps. 
+# Here are some other functions/methods you should use:
 
+# The map method of Pair returns a new Scheme list 
+# constructed by applying a one-argument function to every item in a Scheme list.
+# The scheme_apply function applies a Scheme procedure to arguments represented 
+# as a Scheme list (a Pair instance or nil).
+#Implement the missing part of scheme_eval, which evaluates a call expression. To evaluate a call expression:
+
+#Evaluate the operator (which should evaluate to a Procedure instance).
+#Evaluate all of the operands and collect the results (the argument values) in a Scheme list.
+#Return the result of calling scheme_apply on this Procedure and these argument values.
 
 def scheme_apply(procedure, args, env):
     """Apply Scheme PROCEDURE to argument values ARGS (a Scheme list) in
